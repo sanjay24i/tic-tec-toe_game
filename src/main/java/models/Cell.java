@@ -4,6 +4,19 @@ public class Cell {
     private int row;
     private int col;
     private Player player;
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public void setCellState(CellState cellState) {
+        this.cellState = cellState;
+    }
+
     private CellState cellState;
 
     public Cell(int row, int col, CellState cellState) {

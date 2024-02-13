@@ -2,6 +2,7 @@ package models;
 import exception.DuplicatePlayerSymbol;
 import exception.MoreThenOneBotException;
 import exception.PlyerAndBoardCountMismatchException;
+import strategy.WinningStrategy;
 
 import java.util.*;
 
@@ -11,10 +12,17 @@ public class Game {
     private int nextPlayerIndex;
     private Player winningPlayer;
     private GameState gameState;
+    private  List<Move> moves;
 
-    private Game(int dimention, List<Player> playerList) {
+    private List<WinningStrategy> winningStrategies;
+
+
+
+    private Game(int dimention, List<Player> playerList, List<WinningStrategy> winningStrategies) {
         this.playerList = playerList;
         this.board = new Board(dimention);
+        this.moves = new ArrayList<>();
+        this.winningStrategies = winningStrategies;
     }
 
     public static Builder getBuilder(){
@@ -24,9 +32,43 @@ public class Game {
     public void printBoard() {
         board.printBoard();
     }
+
+    public void makeMove() {
+        Player currentPlayer = playerList.get(nextPlayerIndex);
+        Cell cell = currentPlayer.makeMove(board);
+        Move move = new Move(cell, currentPlayer);
+        moves.add(move);
+
+        if(checkWinner(move, board)){
+            gameState = GameState.CONCULUDED;
+            winningPlayer = currentPlayer;
+            return;
+        }
+
+        if(moves.size() == board.getDimension() * board.getDimension()){
+            gameState = GameState.DRAW;
+            return;
+        }
+
+        nextPlayerIndex++;
+        nextPlayerIndex = nextPlayerIndex % playerList.size();
+    }
+
+    private boolean checkWinner(Move move, Board board) {
+        for(WinningStrategy winningStrategy: winningStrategies){
+            if(winningStrategy.checkWinner(board, move)){
+                return true;
+            }
+        }
+
+        return  false;
+    }
+
     public static class Builder {
         private int dimension;
         private List<Player> players;
+
+        private List<WinningStrategy> winningStrategies;
 
         private Builder(){
             this.dimension = 0;
@@ -35,6 +77,15 @@ public class Game {
 
         public Builder setDimension(int dimension){
             this.dimension = dimension;
+            return this;
+        }
+
+        public List<WinningStrategy> getWinningStrategy() {
+            return winningStrategies;
+        }
+
+        public Builder setWinningStrategy(List<WinningStrategy> winningStrategies) {
+            this.winningStrategies = winningStrategies;
             return this;
         }
 
@@ -75,7 +126,7 @@ public class Game {
             checkUniqueSymbolForPlayer();
             checkBotCount();
             checkPlayerCountAndBoardDimension();
-            return new Game(dimension, players);
+            return new Game(dimension, players, winningStrategies);
         }
     }
 

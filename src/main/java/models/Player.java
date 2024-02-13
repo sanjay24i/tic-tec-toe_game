@@ -1,10 +1,12 @@
 package models;
 
-public class Player {
+public abstract class  Player {
     private String name;
     private int id;
     private char symbol;
     private PlayerType playerType;
+
+    public abstract Cell makeMove(Board board);
 
     public Player(String name, char symbol, PlayerType playerType) {
         this.name = name;
@@ -27,4 +29,6 @@ public class Player {
     public PlayerType getPlayerType() {
         return playerType;
     }
+
+
 }

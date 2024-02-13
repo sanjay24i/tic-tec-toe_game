@@ -2,13 +2,21 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 public class Board {
-    private int size;
+    public int getDimension() {
+        return dimension;
+    }
+
+    private int dimension;
     private  List<List<Cell>> board;
 
-    public Board(int size) {
-        this.size = size;
+    public List<List<Cell>> getBoard() {
+        return board;
+    }
+
+    public Board(int dimension) {
+        this.dimension = dimension;
         this.board = new ArrayList<>();
-        createBoard(size);
+        createBoard(dimension);
     }
 
     public void createBoard(int size){
