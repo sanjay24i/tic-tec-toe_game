@@ -19,10 +19,14 @@ public class Game {
 
 
     private Game(int dimention, List<Player> playerList, List<WinningStrategy> winningStrategies) {
+        this.nextPlayerIndex = 0;
         this.playerList = playerList;
         this.board = new Board(dimention);
         this.moves = new ArrayList<>();
+        this.gameState = GameState.IN_PROG;
         this.winningStrategies = winningStrategies;
+
+
     }
 
     public static Builder getBuilder(){
@@ -34,8 +38,11 @@ public class Game {
     }
 
     public void makeMove() {
+
         Player currentPlayer = playerList.get(nextPlayerIndex);
+
         Cell cell = currentPlayer.makeMove(board);
+
         Move move = new Move(cell, currentPlayer);
         moves.add(move);
 

@@ -31,9 +31,12 @@ public class Board {
     }
 
     public void printBoard(){
+        int count = 1;
+        System.out.flush();
         for(List<Cell> row : board){
             for(Cell col: row){
-                col.printCell();
+                col.printCell(count);
+                count++;
             }
             System.out.println();
         }

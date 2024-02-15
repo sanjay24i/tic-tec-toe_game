@@ -10,12 +10,12 @@ import strategy.WinningStrategy;
 import java.util.List;
 public class GameController {
     public Game createGame(int dimension, List<Player> player,
-                           List<WinningStrategy> winningStrategy)
+                           List<WinningStrategy> winningStrategyList)
                         throws DuplicatePlayerSymbol, MoreThenOneBotException, PlyerAndBoardCountMismatchException {
         return Game.getBuilder()
                 .setDimension(dimension)
                 .setPlayers(player)
-                .setWinningStrategy(winningStrategy)
+                .setWinningStrategy(winningStrategyList)
                 .build();
     }
 

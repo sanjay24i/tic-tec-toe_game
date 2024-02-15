@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Tic-tec-toe:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Tic_tec_toe_jar</output-path>
+    <root id="archive" name="Tic-tec-toe.jar">
+      <element id="module-output" name="Tic-tec-toe" />
+    </root>
+  </artifact>
+</component>

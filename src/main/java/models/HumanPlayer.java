@@ -9,15 +9,35 @@ public class HumanPlayer extends Player{
         this.scanner = scanner;
     }
 
+    public  Cell calculateRow(int number, Board board){
+
+        Cell cell = new Cell(0, number, null);
+
+        int dimension = board.getDimension();
+        int linearIndex = number - 1; // Adjusting to 0-based indexing
+
+        int row = linearIndex / dimension;
+        int col = linearIndex % dimension;
+
+      //  System.out.println("row - " + row + ", col - " + col);
+
+        cell.setRow(row);
+        cell.setCol(col);
+        return  cell;
+    }
+
     @Override
     public Cell makeMove(Board board) {
-        int row = scanner.nextInt();
-        int col = scanner.nextInt();
-        System.out.print(getName() + " its your turn to make the move");
+        System.out.println(getName() + " its your turn to make the move");
+        int number = scanner.nextInt();
+        int row = calculateRow(number,board).getRow();
+        int col = calculateRow(number, board).getCol();
+
         while(!validateRowAndCol(row, col, board)){
-            System.out.print(getName() + " Invalid move please enter row and column");
-            row = scanner.nextInt();
-            col = scanner.nextInt();
+            System.out.println(getName() + " Invalid move please enter row and column");
+            number = scanner.nextInt();
+            row = calculateRow(number, board).getRow();
+            col = calculateRow(number, board).getCol();
         }
 
         Cell cell = board.getBoard().get(row).get(col);
