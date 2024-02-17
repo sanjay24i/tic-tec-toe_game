@@ -1,6 +1,6 @@
 package Factories;
 
-import models.DifficultyLavel;
+import models.DifficultyLevel;
 import strategy.BotPlayingStrategy;
 import strategy.ComplexBotPlayingStrategy;
 import strategy.EasyBotPlayingStrategy;
@@ -8,7 +8,7 @@ import strategy.MediumBotPlyingStrategy;
 
 public class BotPlyingStrategyFactory {
 
-    public static BotPlayingStrategy getPlayingStrategy(DifficultyLavel difficultyLavel){
+    public static BotPlayingStrategy getPlayingStrategy(DifficultyLevel difficultyLavel){
         switch (difficultyLavel){
             case MIDIUM:
                 return new MediumBotPlyingStrategy();

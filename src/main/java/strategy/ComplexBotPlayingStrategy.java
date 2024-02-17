@@ -11,7 +11,7 @@ public class ComplexBotPlayingStrategy implements BotPlayingStrategy {
         int boardSize = board.getDimension();
 
         // Assuming the bot player is represented by a Player object
-        Player botPlayer = new BotPlayer("Bot", 'X', PlayerType.BOT, DifficultyLavel.MIDIUM);
+        Player botPlayer = new BotPlayer("Bot", 'X', PlayerType.BOT, DifficultyLevel.MIDIUM);
 
         // Check rows and columns for winning moves and blocking moves
         for (int i = 0; i < boardSize; i++) {

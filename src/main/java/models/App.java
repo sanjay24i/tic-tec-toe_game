@@ -8,7 +8,6 @@ import strategy.WinningStrategy;
 import strategy.columnWinningStrategy;
 import strategy.diagonalWinningStrategy;
 import strategy.rowWinningStrategy;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,7 +30,7 @@ public class App {
         int playerType = 1;
         int isBotPlyer = 1;
 
-        System.out.println("Do you want Bot Player : press 1 for yes or 0 for No");
+        System.out.println(utils.makeBold("Do you want a Bot Player?") + " Press 1 for yes or 0 for no");
         isBotPlyer = scanner.nextInt();
         scanner.nextLine();
 
@@ -42,33 +41,34 @@ public class App {
                 if((players.size())== (playerCount -1) && playerType == 1){
                     playerType = 0;
                 }else{
-                    System.out.println("Select Player Type : For Bot enter 0. For Human enter 1");
+                    System.out.println(utils.makeBold("Choose Player Type:")+" Enter 0 for Bot or 1 for Human");
                     playerType = scanner.nextInt();
                     scanner.nextLine();  // Consume the newline character
                 }
 
             }
             if(playerType == 0){
-                System.out.println("Enter Bot Player Name");
+                System.out.println("Enter the name for the " + utils.makeBold("Bot Player:"));
                 String  botName = scanner.nextLine();
-                System.out.println("Enter Bot symbol single character");
+                System.out.println("Enter a single character for the " + utils.makeBold("Bots symbol:"));
                 char  botSymbol = scanner.nextLine().charAt(0);
-                players.add(new BotPlayer(botName, botSymbol, PlayerType.BOT, DifficultyLavel.COMPLEX));
+                System.out.println("Choose "+utils.makeBold("Bot difficulty level:") + " 3 (COMPLEX), 2 (MEDIUM), 1 (DEFAULT)");
+                int  botDifficultyLevel = scanner.nextInt();
+                DifficultyLevel difficultyLevel = botDifficultyLevel == 3 ? DifficultyLevel.COMPLEX : botDifficultyLevel == 2 ? DifficultyLevel.MIDIUM: DifficultyLevel.EASY;
+                players.add(new BotPlayer(botName, botSymbol, PlayerType.BOT, difficultyLevel));
                 isBotPlayerCreated = true;
                 playerType = 1;
                 isBotPlyer = 0;
             }
             else{
-                System.out.println("Enter " + (i+1) + " Player Name");
+                System.out.println("Enter Player " + (i+1) + "'s Name:");
                 String  playerName = scanner.nextLine();
-               // scanner.nextLine();
-                System.out.println("Enter " + (i+1) + " Player symbol single character");
+                System.out.print("Enter Player " + (i+1) + "'s symbol " + utils.makeBold("(single character):"));
                 char  playerSymbol= scanner.nextLine().charAt(0);
                 players.add(new HumanPlayer(playerName, playerSymbol, PlayerType.HUMAN, scanner));
             }
         }
 
-        // players.add(new BotPlayer("GPT", '+', PlayerType.BOT, DifficultyLavel.EASY));
         Game game = gameController.createGame(dimension, players, winingStrategies);
 
         while(GameState.IN_PROG.equals(game.getGameState())){
@@ -79,12 +79,12 @@ public class App {
 
         if(GameState.CONCULUDED.equals(game.getGameState())){
             gameController.printBoard(game);
-            System.out.print(game.getWinningPlayer().getName() + " has won the game");
+            System.out.print(game.getWinningPlayer().getName() + " has won the game! Congratulations!");
         }
 
         if(GameState.DRAW.equals(game.getGameState())){
             gameController.printBoard(game);
-            System.out.print(" Its a draw");
+            System.out.print(utils.makeBold("It's a draw!") +" Keep playing and strive for victory next time!");
         }
     }
 }

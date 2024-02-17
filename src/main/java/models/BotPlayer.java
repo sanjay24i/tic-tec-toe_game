@@ -2,16 +2,16 @@ package models;
 import Factories.BotPlyingStrategyFactory;
 import strategy.BotPlayingStrategy;
 public class BotPlayer extends Player{
-    private DifficultyLavel difficultyLavel;
+    private DifficultyLevel difficultyLavel;
     private BotPlayingStrategy botPlayingStrategy;
 
-    public BotPlayer(String name, char symbol, PlayerType playerType, DifficultyLavel difficultyLavel) {
+    public BotPlayer(String name, char symbol, PlayerType playerType, DifficultyLevel difficultyLavel) {
         super(name, symbol, playerType);
         this.difficultyLavel = difficultyLavel;
         this.botPlayingStrategy = BotPlyingStrategyFactory.getPlayingStrategy(difficultyLavel);
     }
 
-    public DifficultyLavel getDifficultyLavel() {
+    public DifficultyLevel getDifficultyLavel() {
         return difficultyLavel;
     }
 
